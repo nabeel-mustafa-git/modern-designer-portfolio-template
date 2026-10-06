@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f5f1;
+  --color-rule: #e8e7e2;
+  --color-ink: #1d1b1a;
+  --color-coal: #1e1a17;
+  --color-sun: #f2c443;
+  --color-cobalt: #2c4fd6;
+  --color-rose: #ff4d94;
+  --color-leaf: #20b15a;
+  --color-mint: #a8dcc4;
+  --color-butter: #f3e2a4;
+  --color-tangerine: #f0683a;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --font-pixel: var(--font-handjet), ui-monospace, monospace;
+  --font-hand: var(--font-handwriting), cursive;
+}
+
+body {
+  background: #8b8b8b;
+  color: var(--color-ink);
+  overflow-x: hidden;
+}
+
+/* Grey grid the paper sheet sits on */
+.grid-backdrop {
+  background-color: #8b8b8b;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.36) 2px, transparent 2px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.36) 2px, transparent 2px);
+  background-size: 78px 78px;
+  background-position: 42px 24px;
+}
+
+/* Ruled notebook sheet */
+.paper {
+  background-color: var(--color-paper);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 23px,
+    var(--color-rule) 23px
+  );
+  background-size: 100% 24px;
+  background-position: 0 44px;
+  overflow-x: clip;
+}
+
+/* Sheet unrolls from the top on load; Paper.tsx drives --reveal */
+.paper[data-intro="pending"] {
+  clip-path: inset(0 0 calc(100% - var(--reveal, 0) * 110vh) 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper[data-intro="pending"] {
+    clip-path: none;
+  }
+}
